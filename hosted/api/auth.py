@@ -8,7 +8,7 @@ import bcrypt
 from fastapi import HTTPException, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-from ..db import get_db
+from db import get_db
 
 security = HTTPBearer()
 
