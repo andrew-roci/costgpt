@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CostGPT - LLM Cost Attribution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-950 text-gray-100">
+    <nav class="border-b border-gray-800">
+        <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+            <span class="text-lg font-semibold">CostGPT</span>
+            <div class="flex gap-6 items-center">
+                <a href="/login" class="text-gray-400 hover:text-white text-sm">Login</a>
+                <a href="/signup" class="bg-white text-gray-900 px-4 py-2 rounded text-sm hover:bg-gray-200">Get Started</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-24 px-6">
+        <div class="max-w-3xl mx-auto text-center">
+            <h1 class="text-4xl font-semibold text-white mb-4 tracking-tight">
+                Know Where Your AI Spend Goes
+            </h1>
+            <p class="text-lg text-gray-400 mb-8">
+                Cost attribution for LLMs. See spend by user, feature, and model. No more surprise bills.
+            </p>
+            <a href="/signup" class="bg-white text-gray-900 px-5 py-2.5 rounded text-sm hover:bg-gray-200 inline-block">
+                Start Free
+            </a>
+        </div>
+    </section>
+
+    <section class="pb-24 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-gray-900 border border-gray-800 rounded-lg p-6">
+                <div class="grid grid-cols-4 gap-4 mb-6">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white">$2,847</div>
+                        <div class="text-xs text-gray-500">Last 30 days</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white">142K</div>
+                        <div class="text-xs text-gray-500">API calls</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-white">89M</div>
+                        <div class="text-xs text-gray-500">Tokens</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-2xl font-bold text-green-400">-12%</div>
+                        <div class="text-xs text-gray-500">vs last month</div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="bg-gray-800 rounded p-4">
+                        <div class="text-xs text-gray-500 mb-2">Top Model</div>
+                        <div class="text-sm text-white">claude-sonnet-4</div>
+                        <div class="text-xs text-gray-400">$1,923 (68%)</div>
+                    </div>
+                    <div class="bg-gray-800 rounded p-4">
+                        <div class="text-xs text-gray-500 mb-2">Top User</div>
+                        <div class="text-sm text-white">user_8472</div>
+                        <div class="text-xs text-gray-400">$412 (14%)</div>
+                    </div>
+                    <div class="bg-gray-800 rounded p-4">
+                        <div class="text-xs text-gray-500 mb-2">Top Feature</div>
+                        <div class="text-sm text-white">chat</div>
+                        <div class="text-xs text-gray-400">$1,102 (39%)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 px-6 bg-gray-900/50">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-semibold text-center mb-12">The Problem</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="text-3xl mb-2">📈</div>
+                    <h3 class="font-semibold text-white mb-2">Opaque</h3>
+                    <p class="text-gray-400 text-sm">You get one bill. No breakdown by user, feature, or team.</p>
+                </div>
+                <div>
+                    <div class="text-3xl mb-2">⚡</div>
+                    <h3 class="font-semibold text-white mb-2">Spiky</h3>
+                    <p class="text-gray-400 text-sm">One runaway agent can blow your budget overnight.</p>
+                </div>
+                <div>
+                    <div class="text-3xl mb-2">😱</div>
+                    <h3 class="font-semibold text-white mb-2">Surprising</h3>
+                    <p class="text-gray-400 text-sm">Finance asks "why is AI spend up 300%?" You have no answer.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-2xl font-semibold text-center mb-12">Two Lines to Start</h2>
+            <div class="bg-gray-900 border border-gray-800 rounded-lg p-6 font-mono text-sm">
+                <div class="text-gray-300">
+                    <span class="text-purple-400">from</span> costgpt <span class="text-purple-400">import</span> CostTracker<br><br>
+                    tracker = CostTracker(api_key=<span class="text-green-400">"cg_live_..."</span>)<br>
+                    tracker.instrument_anthropic()<br><br>
+                    <span class="text-gray-500"># All calls now tracked with cost attribution</span><br>
+                    response = client.messages.create(...)
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 bg-gray-900/50">
+        <div class="max-w-2xl mx-auto">
+            <h2 class="text-2xl font-semibold text-center mb-12">Pricing</h2>
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-gray-900 border border-gray-800 rounded-lg p-6">
+                    <h3 class="font-semibold text-white mb-1">Free</h3>
+                    <p class="text-2xl font-semibold text-white mb-4">$0</p>
+                    <ul class="text-sm text-gray-400 space-y-2 mb-6">
+                        <li>10,000 events/month</li>
+                        <li>7 day retention</li>
+                        <li>Basic dashboards</li>
+                    </ul>
+                    <a href="/signup" class="block text-center border border-gray-700 px-4 py-2 rounded text-sm hover:bg-gray-800">Get Started</a>
+                </div>
+                <div class="bg-gray-900 border-2 border-white rounded-lg p-6">
+                    <h3 class="font-semibold text-white mb-1">Pro</h3>
+                    <p class="text-2xl font-semibold text-white mb-4">$49<span class="text-sm font-normal text-gray-400">/mo</span></p>
+                    <ul class="text-sm text-gray-400 space-y-2 mb-6">
+                        <li>Unlimited events</li>
+                        <li>90 day retention</li>
+                        <li>Alerts & budgets</li>
+                    </ul>
+                    <a href="/signup" class="block text-center bg-white text-gray-900 px-4 py-2 rounded text-sm hover:bg-gray-200">Start Free Trial</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 px-6 border-t border-gray-800">
+        <div class="max-w-3xl mx-auto text-center">
+            <h2 class="text-2xl font-semibold mb-4 text-white">Stop getting surprised by AI bills</h2>
+            <p class="text-gray-400 mb-6">Know exactly where your spend goes. Free tier, no credit card.</p>
+            <a href="/signup" class="bg-white text-gray-900 px-5 py-2.5 rounded text-sm hover:bg-gray-200 inline-block">Create Account</a>
+        </div>
+    </section>
+
+    <footer class="py-8 px-6 border-t border-gray-800 text-center text-sm text-gray-500">
+        CostGPT
+    </footer>
+</body>
+</html>

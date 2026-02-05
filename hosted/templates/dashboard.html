@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - CostGPT{% endblock %}
+{% block content %}
+<div class="mb-6 flex justify-between items-center">
+    <h1 class="text-2xl font-semibold">Cost Dashboard</h1>
+    <div class="flex gap-2">
+        <a href="?days=7" class="px-3 py-1 text-sm rounded {% if days == 7 %}bg-white text-gray-900{% else %}bg-gray-800 text-gray-400 hover:bg-gray-700{% endif %}">7d</a>
+        <a href="?days=30" class="px-3 py-1 text-sm rounded {% if days == 30 %}bg-white text-gray-900{% else %}bg-gray-800 text-gray-400 hover:bg-gray-700{% endif %}">30d</a>
+        <a href="?days=90" class="px-3 py-1 text-sm rounded {% if days == 90 %}bg-white text-gray-900{% else %}bg-gray-800 text-gray-400 hover:bg-gray-700{% endif %}">90d</a>
+    </div>
+</div>
+
+<!-- Summary Cards -->
+<div class="grid grid-cols-4 gap-4 mb-8">
+    <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
+        <div class="text-gray-500 text-xs mb-1">Total Cost</div>
+        <div class="text-2xl font-bold text-white">${{ "%.2f"|format(totals.cost) }}</div>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
+        <div class="text-gray-500 text-xs mb-1">API Calls</div>
+        <div class="text-2xl font-bold text-white">{{ "{:,}".format(totals.calls) }}</div>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
+        <div class="text-gray-500 text-xs mb-1">Input Tokens</div>
+        <div class="text-2xl font-bold text-white">{{ "{:,}".format(totals.input_tokens) }}</div>
+    </div>
+    <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
+        <div class="text-gray-500 text-xs mb-1">Output Tokens</div>
+        <div class="text-2xl font-bold text-white">{{ "{:,}".format(totals.output_tokens) }}</div>
+    </div>
+</div>
+
+<!-- Chart -->
+<div class="bg-gray-900 border border-gray-800 rounded-lg p-4 mb-8">
+    <h2 class="font-semibold text-white mb-4">Daily Spend</h2>
+    <canvas id="dailyChart" height="100"></canvas>
+</div>
+
+<!-- Breakdowns -->
+<div class="grid grid-cols-3 gap-6">
+    <!-- By Model -->
+    <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
+        <h2 class="font-semibold text-white mb-4">By Model</h2>
+        <div class="space-y-3">
+            {% for item in by_model %}
+            <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-300 truncate">{{ item.model }}</span>
+                <span class="text-sm text-white">${{ "%.2f"|format(item.cost) }}</span>
+            </div>
+            {% else %}
+            <p class="text-gray-500 text-sm">No data yet</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- By User -->
+    <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
+        <h2 class="font-semibold text-white mb-4">By User</h2>
+        <div class="space-y-3">
+            {% for item in by_user %}
+            <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-300 truncate">{{ item.user_id }}</span>
+                <span class="text-sm text-white">${{ "%.2f"|format(item.cost) }}</span>
+            </div>
+            {% else %}
+            <p class="text-gray-500 text-sm">No data yet</p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- By Feature -->
+    <div class="bg-gray-900 border border-gray-800 rounded-lg p-4">
+        <h2 class="font-semibold text-white mb-4">By Feature</h2>
+        <div class="space-y-3">
+            {% for item in by_feature %}
+            <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-300 truncate">{{ item.feature }}</span>
+                <span class="text-sm text-white">${{ "%.2f"|format(item.cost) }}</span>
+            </div>
+            {% else %}
+            <p class="text-gray-500 text-sm">No data yet</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+const dailyData = {{ daily | tojson }};
+const ctx = document.getElementById('dailyChart').getContext('2d');
+new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: dailyData.map(d => d.date),
+        datasets: [{
+            label: 'Cost ($)',
+            data: dailyData.map(d => d.cost),
+            backgroundColor: 'rgba(59, 130, 246, 0.5)',
+            borderColor: 'rgba(59, 130, 246, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: {
+                beginAtZero: true,
+                grid: { color: 'rgba(255,255,255,0.1)' },
+                ticks: { color: '#9ca3af' }
+            },
+            x: {
+                grid: { display: false },
+                ticks: { color: '#9ca3af' }
+            }
+        },
+        plugins: {
+            legend: { display: false }
+        }
+    }
+});
+</script>
+{% endblock %}

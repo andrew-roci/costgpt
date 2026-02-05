@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}CostGPT{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-950 text-gray-100 min-h-screen">
+    <nav class="border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="/dashboard" class="text-lg font-semibold text-white">CostGPT</a>
+            {% if user %}
+            <div class="flex items-center gap-6">
+                <a href="/dashboard" class="text-gray-400 hover:text-white text-sm">Dashboard</a>
+                <a href="/keys" class="text-gray-400 hover:text-white text-sm">API Keys</a>
+                <span class="text-gray-500 text-sm">{{ user.email }}</span>
+                <a href="/logout" class="text-red-400 hover:text-red-300 text-sm">Logout</a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+    <main class="max-w-7xl mx-auto px-4 py-8">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
