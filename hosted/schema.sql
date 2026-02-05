@@ -57,14 +57,14 @@ CREATE TABLE daily_costs (
     customer_id UUID NOT NULL REFERENCES customers(id) ON DELETE CASCADE,
     date DATE NOT NULL,
     model TEXT NOT NULL,
-    user_id TEXT,
-    feature TEXT,
+    user_id TEXT NOT NULL DEFAULT '',
+    feature TEXT NOT NULL DEFAULT '',
     total_calls INT DEFAULT 0,
     total_input_tokens BIGINT DEFAULT 0,
     total_output_tokens BIGINT DEFAULT 0,
     total_cost DECIMAL(12, 6) DEFAULT 0,
 
-    PRIMARY KEY (customer_id, date, model, COALESCE(user_id, ''), COALESCE(feature, ''))
+    PRIMARY KEY (customer_id, date, model, user_id, feature)
 );
 
 -- Function to update daily aggregates
@@ -76,14 +76,14 @@ BEGIN
         NEW.customer_id,
         DATE(NEW.timestamp),
         NEW.model,
-        NEW.user_id,
-        NEW.feature,
+        COALESCE(NEW.user_id, ''),
+        COALESCE(NEW.feature, ''),
         1,
         NEW.input_tokens,
         NEW.output_tokens,
         NEW.total_cost
     )
-    ON CONFLICT (customer_id, date, model, COALESCE(user_id, ''), COALESCE(feature, ''))
+    ON CONFLICT (customer_id, date, model, user_id, feature)
     DO UPDATE SET
         total_calls = daily_costs.total_calls + 1,
         total_input_tokens = daily_costs.total_input_tokens + NEW.input_tokens,
