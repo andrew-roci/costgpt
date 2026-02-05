@@ -26,6 +26,17 @@
             <p class="text-lg text-gray-400 mb-8">
                 Cost attribution for LLMs. See spend by user, feature, and model. No more surprise bills.
             </p>
+
+            <!-- Code snippet -->
+            <div class="bg-gray-900 border border-gray-800 rounded-lg p-5 mb-8 text-left font-mono text-sm max-w-lg mx-auto">
+                <div class="text-gray-300">
+                    <span class="text-purple-400">from</span> costgpt <span class="text-purple-400">import</span> CostTracker<br><br>
+                    tracker = CostTracker(api_key=<span class="text-green-400">"cg_live_..."</span>)<br>
+                    tracker.instrument_anthropic()<br>
+                    <span class="text-gray-500"># Done. All calls now tracked.</span>
+                </div>
+            </div>
+
             <a href="/signup" class="bg-white text-gray-900 px-5 py-2.5 rounded text-sm hover:bg-gray-200 inline-block">
                 Start Free
             </a>
