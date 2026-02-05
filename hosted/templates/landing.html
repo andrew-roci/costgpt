@@ -11,6 +11,7 @@
         <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
             <span class="text-lg font-semibold">CostGPT</span>
             <div class="flex gap-6 items-center">
+                <a href="https://github.com/andrew-roci/costgpt" target="_blank" class="text-gray-400 hover:text-white text-sm">Docs</a>
                 <a href="/login" class="text-gray-400 hover:text-white text-sm">Login</a>
                 <a href="/signup" class="bg-white text-gray-900 px-4 py-2 rounded text-sm hover:bg-gray-200">Get Started</a>
             </div>
@@ -111,6 +112,61 @@
         </div>
     </section>
 
+    <section class="py-24 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-2xl font-semibold text-center mb-4">Examples</h2>
+            <p class="text-gray-400 text-center mb-12">Tag calls with user and feature for full attribution</p>
+
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Track by User -->
+                <div class="bg-gray-900 border border-gray-800 rounded-lg p-5">
+                    <h3 class="font-semibold text-white mb-3">Track by User</h3>
+                    <pre class="text-sm text-gray-300 overflow-x-auto"><code><span class="text-gray-500"># Attribute costs to specific users</span>
+tracker.track(
+    model=<span class="text-green-400">"claude-sonnet-4-20250514"</span>,
+    input_tokens=response.usage.input_tokens,
+    output_tokens=response.usage.output_tokens,
+    user_id=<span class="text-green-400">"user_8472"</span>,
+)</code></pre>
+                </div>
+
+                <!-- Track by Feature -->
+                <div class="bg-gray-900 border border-gray-800 rounded-lg p-5">
+                    <h3 class="font-semibold text-white mb-3">Track by Feature</h3>
+                    <pre class="text-sm text-gray-300 overflow-x-auto"><code><span class="text-gray-500"># See which features cost most</span>
+tracker.track(
+    model=<span class="text-green-400">"gpt-4o"</span>,
+    input_tokens=1500,
+    output_tokens=800,
+    feature=<span class="text-green-400">"code-review"</span>,
+)</code></pre>
+                </div>
+
+                <!-- Auto-instrument Anthropic -->
+                <div class="bg-gray-900 border border-gray-800 rounded-lg p-5">
+                    <h3 class="font-semibold text-white mb-3">Auto-instrument Anthropic</h3>
+                    <pre class="text-sm text-gray-300 overflow-x-auto"><code><span class="text-gray-500"># One line, all calls tracked</span>
+tracker.instrument_anthropic()
+
+<span class="text-gray-500"># Works automatically</span>
+client = anthropic.Anthropic()
+response = client.messages.create(...)</code></pre>
+                </div>
+
+                <!-- Auto-instrument OpenAI -->
+                <div class="bg-gray-900 border border-gray-800 rounded-lg p-5">
+                    <h3 class="font-semibold text-white mb-3">Auto-instrument OpenAI</h3>
+                    <pre class="text-sm text-gray-300 overflow-x-auto"><code><span class="text-gray-500"># Same for OpenAI</span>
+tracker.instrument_openai()
+
+<span class="text-gray-500"># All completions tracked</span>
+client = openai.OpenAI()
+response = client.chat.completions.create(...)</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="py-24 px-6 bg-gray-900/50">
         <div class="max-w-2xl mx-auto">
             <h2 class="text-2xl font-semibold text-center mb-12">Pricing</h2>
@@ -147,8 +203,14 @@
         </div>
     </section>
 
-    <footer class="py-8 px-6 border-t border-gray-800 text-center text-sm text-gray-500">
-        CostGPT
+    <footer class="py-8 px-6 border-t border-gray-800">
+        <div class="max-w-5xl mx-auto flex justify-between items-center text-sm text-gray-500">
+            <span>CostGPT</span>
+            <div class="flex gap-6">
+                <a href="https://github.com/andrew-roci/costgpt" target="_blank" class="hover:text-gray-300">GitHub</a>
+                <a href="https://github.com/andrew-roci/costgpt#readme" target="_blank" class="hover:text-gray-300">Docs</a>
+            </div>
+        </div>
     </footer>
 </body>
 </html>
