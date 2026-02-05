@@ -6,9 +6,9 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from .api.routes import router as api_router
-from .web.routes import router as web_router
-from .db import init_db, close_db
+from api.routes import router as api_router
+from web.routes import router as web_router
+from db import init_db, close_db
 
 
 @asynccontextmanager

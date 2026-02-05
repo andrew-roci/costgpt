@@ -8,11 +8,11 @@ from fastapi import APIRouter, Form, Request
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
-from ..api.auth import generate_api_key
-from ..db import get_db
+from api.auth import generate_api_key
+from db import get_db
 
 router = APIRouter()
-templates = Jinja2Templates(directory="hosted/templates")
+templates = Jinja2Templates(directory="templates")
 
 
 async def get_current_user(request: Request) -> dict | None:

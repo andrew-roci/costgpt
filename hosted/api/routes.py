@@ -7,8 +7,8 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Query
 from pydantic import BaseModel
 
-from ..db import get_db
-from .auth import AuthContext, get_auth_context
+from db import get_db
+from api.auth import AuthContext, get_auth_context
 
 router = APIRouter(prefix="/v1")
 
